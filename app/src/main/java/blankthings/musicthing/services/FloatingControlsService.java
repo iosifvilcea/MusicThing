@@ -55,44 +55,19 @@ public class FloatingControlsService extends Service {
 
 
     private void setupButtons() {
-        View prev = floatingControlsView.findViewById(R.id.control_previous);
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goPrevious();
-            }
-        });
+        final View prev = floatingControlsView.findViewById(R.id.control_previous);
+        prev.setOnClickListener((v) -> goPrevious());
 
         final View next = floatingControlsView.findViewById(R.id.control_next);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goNext();
-            }
-        });
+        next.setOnClickListener((v) -> goNext());
 
         final View play = floatingControlsView.findViewById(R.id.control_play);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goPlay();
-            }
-        });
+        play.setOnClickListener((v) -> goPlay());
 
         final View close = floatingControlsView.findViewById(R.id.control_close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goExit();
-            }
-        });
-        
-        floatingControlsView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return moveWindow(v, event);
-            }
-        });
+        close.setOnClickListener((v) -> goExit());
+
+        floatingControlsView.setOnTouchListener(this::moveWindow);
     }
 
 
