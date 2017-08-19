@@ -8,8 +8,6 @@ public interface PlaylistPresenterContract extends PresenterContract {
 
     void play();
 
-    void stop();
-
     void next();
 
     void previous();

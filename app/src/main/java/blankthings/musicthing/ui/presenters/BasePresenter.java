@@ -8,10 +8,11 @@ import blankthings.musicthing.ui.views.ViewContract;
 
 public abstract class BasePresenter<V extends ViewContract> implements PresenterContract {
 
-    V view;
 
     public BasePresenter(V view) {
-        this.view = view;
+        if (view == null) {
+            throw new NullPointerException("View cannot be null.");
+        }
     }
 
 }
