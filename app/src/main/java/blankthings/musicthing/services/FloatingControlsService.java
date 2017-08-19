@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.WindowManager;
 
 import blankthings.musicthing.R;
+import blankthings.musicthing.ui.presenters.PlaylistPresenter;
+import blankthings.musicthing.ui.views.ViewContract;
 
-public class FloatingControlsService extends Service {
+public class FloatingControlsService extends Service implements ViewContract {
 
     public static final String TAG = FloatingControlsService.class.getSimpleName();
 
@@ -26,6 +28,10 @@ public class FloatingControlsService extends Service {
 
     private float initialTouchX;
     private float initialTouchY;
+
+    private boolean isPlaying = false;
+
+    private PlaylistPresenter presenter;
 
 
     public FloatingControlsService() {
@@ -44,6 +50,8 @@ public class FloatingControlsService extends Service {
         setupfloatingView();
         setupButtons();
         setupWindowManager();
+
+        presenter = new PlaylistPresenter(this);
     }
 
 
@@ -72,20 +80,23 @@ public class FloatingControlsService extends Service {
 
 
     public void goPrevious() {
-        Log.e(TAG, "Prev.");
+        presenter.previous();
     }
 
 
     public void goNext() {
-        Log.e(TAG, "Next.");
+        presenter.next();
     }
 
 
-
     public void goPlay() {
-        // TODO: 8/19/17 - if playing, then stop and change drawable to paused.
-        // TODO: 8/19/17 - if stopped, then play and change drawable to playing.
-        Log.e(TAG, "Play / Pause");
+        if (isPlaying) {
+            presenter.stop();
+        } else {
+            presenter.play();
+        }
+
+        isPlaying = !isPlaying;
     }
 
 
@@ -143,5 +154,17 @@ public class FloatingControlsService extends Service {
         if (floatingControlsView != null) {
             windowManager.removeView(floatingControlsView);
         }
+    }
+
+
+    @Override
+    public void showLoading() {
+        // TODO: 8/19/17 Animate fade in.
+    }
+
+
+    @Override
+    public void hideLoading() {
+        // TODO: 8/19/17 - Animate fade out.
     }
 }
