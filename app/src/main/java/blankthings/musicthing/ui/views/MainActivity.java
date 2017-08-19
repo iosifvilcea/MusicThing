@@ -9,9 +9,11 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
 import blankthings.musicthing.R;
+import blankthings.musicthing.data.Track;
 import blankthings.musicthing.services.FloatingControlsService;
+import blankthings.musicthing.utils.PlayManager;
 
-public class MainActivity extends AppCompatActivity implements ViewContract {
+public class MainActivity extends AppCompatActivity implements PlaylistViewContract {
 
     private static final int SYS_OVERLAY_PERM_REQUEST_CODE = 9876;
 
@@ -61,5 +63,27 @@ public class MainActivity extends AppCompatActivity implements ViewContract {
     @Override
     public void hideLoading() {
 
+    }
+
+
+    @Override
+    public void setTrackInfo(Track song) {
+
+    }
+
+
+    @Override
+    public void playYoutube(String uri) {
+        PlayManager.playYoutube(this, uri);
+    }
+
+    @Override
+    public void playSoundcloud(String uri) {
+        PlayManager.playSoundcloud(this, uri);
+    }
+
+    @Override
+    public void playSpotify(String uri) {
+        PlayManager.playSpotify(this, uri);
     }
 }

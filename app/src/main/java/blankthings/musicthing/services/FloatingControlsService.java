@@ -1,22 +1,21 @@
 package blankthings.musicthing.services;
 
 import android.app.Service;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import blankthings.musicthing.R;
+import blankthings.musicthing.data.Track;
 import blankthings.musicthing.ui.presenters.PlaylistPresenter;
 import blankthings.musicthing.ui.views.PlaylistViewContract;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import blankthings.musicthing.utils.PlayManager;
 
 public class FloatingControlsService extends Service implements PlaylistViewContract {
 
@@ -32,11 +31,13 @@ public class FloatingControlsService extends Service implements PlaylistViewCont
     private WindowManager.LayoutParams windowParams;
 
     private View floatingControlsView;
+    private TextView trackInfoView;
 
     private PlaylistPresenter presenter;
 
 
     public FloatingControlsService() {
+        presenter = new PlaylistPresenter(this);
     }
 
 
@@ -52,8 +53,7 @@ public class FloatingControlsService extends Service implements PlaylistViewCont
         setupfloatingView();
         setupButtons();
         setupWindowManager();
-
-        presenter = new PlaylistPresenter(this);
+        presenter.init();
     }
 
 
@@ -80,8 +80,8 @@ public class FloatingControlsService extends Service implements PlaylistViewCont
         final View close = floatingControlsView.findViewById(R.id.control_close);
         close.setOnClickListener((v) -> stopSelf());
 
-        final View trackInfo = floatingControlsView.findViewById(R.id.track_info);
-        trackInfo.setOnTouchListener(this::moveWindow);
+        trackInfoView = (TextView) floatingControlsView.findViewById(R.id.track_info);
+        trackInfoView.setOnTouchListener(this::moveWindow);
     }
 
 
@@ -104,7 +104,7 @@ public class FloatingControlsService extends Service implements PlaylistViewCont
 
             case MotionEvent.ACTION_MOVE:
                 windowParams.x = (int) (event.getRawX() - currentTouchX);
-                windowParams.y = (int) (event.getRawY() - currentTouchX);
+                windowParams.y = (int) (event.getRawY() - currentTouchY);
                 windowManager.updateViewLayout(floatingControlsView, windowParams);
                 return true;
         }
@@ -160,31 +160,25 @@ public class FloatingControlsService extends Service implements PlaylistViewCont
 
 
     @Override
+    public void setTrackInfo(Track track) {
+        final String trackInfo = String.format("%s - %s", track.getArtist(), track.getSong());
+        trackInfoView.setText(trackInfo);
+    }
+
+    @Override
     public void playYoutube(String linkId) {
-        final String ytAppUri = "vnd.youtube:";
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(ytAppUri + linkId));
-        appIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-
-        final String ytWebUri = "https://www.youtube.com/watch?v=";
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(ytWebUri + linkId));
-        webIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-
-        try {
-            startActivity(appIntent);
-        } catch (ActivityNotFoundException ex) {
-            startActivity(webIntent);
-        }
+        PlayManager.playYoutube(this, linkId);
     }
 
 
     @Override
     public void playSoundcloud(String uri) {
-        // TODO: 8/19/17
+        PlayManager.playSoundcloud(this, uri);
     }
 
 
     @Override
     public void playSpotify(String uri) {
-        // TODO: 8/19/17
+        PlayManager.playSpotify(this, uri);
     }
 }
