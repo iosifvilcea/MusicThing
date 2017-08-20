@@ -2,6 +2,9 @@ package blankthings.musicthing.ui.presenters;
 
 import android.util.Log;
 
+import java.util.Arrays;
+import java.util.List;
+
 import blankthings.musicthing.data.PlaylistData;
 import blankthings.musicthing.data.Track;
 import blankthings.musicthing.ui.views.PlaylistViewContract;
@@ -87,6 +90,11 @@ public class PlaylistPresenter
         }
 
         play(currentSongPosition);
+    }
+
+
+    public List<Track> getTracks() {
+        return Arrays.asList(playlist.getSongs());
     }
 
 }
