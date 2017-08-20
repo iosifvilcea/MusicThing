@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import blankthings.musicthing.R;
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

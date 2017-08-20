@@ -1,6 +1,6 @@
 package blankthings.musicthing.ui.views;
 
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 
 /**
  * Created by iosif on 8/19/17.

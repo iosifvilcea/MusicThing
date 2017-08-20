@@ -1,4 +1,4 @@
-package blankthings.musicthing.data;
+package blankthings.musicthing.data.models;
 
 /**
  * Created by iosif on 8/19/17.

@@ -14,7 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 import blankthings.musicthing.R;
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 import blankthings.musicthing.services.FloatingControlsService;
 import blankthings.musicthing.ui.adapters.PlaylistAdapter;
 import blankthings.musicthing.ui.presenters.PlaylistPresenter;

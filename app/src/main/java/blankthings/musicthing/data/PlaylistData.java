@@ -1,5 +1,7 @@
 package blankthings.musicthing.data;
 
+import blankthings.musicthing.data.models.Track;
+
 /**
  * Created by iosif on 8/19/17.
  */

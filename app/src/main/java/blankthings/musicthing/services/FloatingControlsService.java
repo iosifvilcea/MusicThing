@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import blankthings.musicthing.R;
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 import blankthings.musicthing.ui.presenters.PlaylistPresenter;
 import blankthings.musicthing.ui.views.PlaylistViewContract;
 import blankthings.musicthing.utils.PlayManager;

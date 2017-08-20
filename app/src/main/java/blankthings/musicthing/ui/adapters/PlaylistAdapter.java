@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 
 /**
  * Created by iosif on 8/19/17.

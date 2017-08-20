@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import blankthings.musicthing.data.PlaylistData;
-import blankthings.musicthing.data.Track;
+import blankthings.musicthing.data.models.Track;
 import blankthings.musicthing.ui.views.PlaylistViewContract;
 
 /**
